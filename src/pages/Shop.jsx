@@ -1,5 +1,5 @@
 
-import {React, useState} from 'react'
+import {React, useState, useRef, useEffect} from 'react'
 import { inGameVariables, itemAmount } from '../store';
 import { ITEMS } from '../constants';
 import { stats } from '../store';
@@ -51,10 +51,19 @@ const Button = ({item,cost}) =>{
 
 // What actually gets rendered, the items on the shelves
 const Shop = () => {
+  const counterRef = useRef(null);
+  const [counterHeight, setCounterHeight] = useState(0);
+  const measureCounter = () => {
+    if (counterRef.current) {
+      const h = counterRef.current.getBoundingClientRect().height;
+      console.log("counter height:", h);
+      setCounterHeight(h);
+    }
+  };
   return (
     <div className="bg-[#e5aa7a] w-screen h-screen mt-[7vh]">
-        <img src="/Virtual-pet/cat.png" className="pixelated absolute left-[18%] w-[22%]"/>
-        <img src="/Virtual-pet/counter.png" className="pixelated scale-x-[-1] absolute bottom-0 w-full"/>
+        <img src="/Virtual-pet/cat.png" style={{ bottom: `${counterHeight}px` }} className="pixelated bg-black absolute left-[18%] w-[22%]"/>
+        <img ref={counterRef} onLoad={measureCounter} src="/Virtual-pet/counter.png" className="pixelated bg-black scale-x-[-1] absolute bottom-0 w-full"/>
         <div className="absolute w-[50%] h-[40%] grid grid-cols-2 grid-rows-3 gap-5 m-[5%] right-0">
           <div className="relative">
           <img src="/Virtual-pet/lithium.png" className="pixelated absolute left-1/2 bottom-[75%] -translate-x-[50%] w-[25%]"/>
