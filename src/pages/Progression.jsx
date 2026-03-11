@@ -3,9 +3,12 @@ import { create } from 'zustand'
 const Progression = create((set, get) => ({
     steps: [],
     currentStep: 0,
-    isActive: false,
+    isActive1: false,
+    isActive2: false,
   
-    start: (steps) => set({ isActive: true }),
+    start1: (steps) => set({ isActive1: true }),
+
+    start2: (steps) => set({ isActive2: true }),
   
     add: (newSteps) => set((state) => {
         const existingPositions = new Set(state.steps.map(s => s.position)); // grabs the old steps array
@@ -17,15 +20,19 @@ const Progression = create((set, get) => ({
     
     next: () => {
       const { currentStep, steps } = get();
-      console.log(currentStep);
-      console.log(steps.length);
-      console.log(steps);
+      console.log(currentStep)
+      console.log(steps)
       if (currentStep < steps.length - 1) set({ currentStep: currentStep + 1 });
-      else set({ isActive: false });
+      if (currentStep == 13) set({ isActive1: false });
+      else if (currentStep == 14) set({ isActive2: false });
       
     },
-  
-    skip: () => set({ currentStep: 3 ,isActive: false }),
-  }))
 
-export default Progression
+    setCurrentStep: (currentStep) => set({currentStep}),
+  
+    skip: () => {
+      const { isActive1, isActive2 } = get();
+      if (isActive1) set({ currentStep: 3 ,isActive1: false });
+      else if (isActive2) set({isActive2: false }) },
+  }))
+  export default Progression

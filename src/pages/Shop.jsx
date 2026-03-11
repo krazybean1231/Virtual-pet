@@ -3,6 +3,7 @@ import {React, useState, useRef, useEffect} from 'react'
 import { inGameVariables, itemAmount } from '../store';
 import { ITEMS } from '../constants';
 import { stats } from '../store';
+import Progression from './Progression';
 
 // Button component to allow reuse
 const Button = ({item,cost}) =>{
@@ -52,7 +53,15 @@ const Button = ({item,cost}) =>{
 // What actually gets rendered, the items on the shelves
 const Shop = () => {
   const counterRef = useRef(null);
+  const lithiumRef = useRef(null);
+  const {add} = Progression();
   const [counterHeight, setCounterHeight] = useState(0);
+  useEffect(() => {
+        
+    add([
+      { target: lithiumRef, position: 13 },
+    ])
+  }, [])
   const measureCounter = () => {
     if (counterRef.current) {
       const h = counterRef.current.getBoundingClientRect().height;
@@ -65,7 +74,7 @@ const Shop = () => {
         <img src="/Virtual-pet/cat.png" style={{ bottom: `${counterHeight}px` }} className="pixelated bg-black absolute left-[18%] w-[22%]"/>
         <img ref={counterRef} onLoad={measureCounter} src="/Virtual-pet/counter.png" className="pixelated bg-black scale-x-[-1] absolute bottom-0 w-full"/>
         <div className="absolute w-[50%] h-[40%] grid grid-cols-2 grid-rows-3 gap-5 m-[5%] right-0">
-          <div className="relative">
+          <div ref={lithiumRef} className="relative">
           <img src="/Virtual-pet/lithium.png" className="pixelated absolute left-1/2 bottom-[75%] -translate-x-[50%] w-[25%]"/>
             <img src="/Virtual-pet/display.png" className="pixelated w-full"/>
             <Button item="Lithium" cost={5}/>

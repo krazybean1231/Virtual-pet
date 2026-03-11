@@ -9,11 +9,11 @@ const Home = () => {
   // Setting the Zustand variables, hooks, and normal variables
     const {money, setMoney, hunger, mood,clean} = inGameVariables();
     const [showTutorial, setShowTutorial] = useState(true);
-    const { isActive, next, skip, steps, currentStep, add } = Progression();
+    const { isActive1, next, skip1, steps, currentStep, add } = Progression();
     useEffect(() => {
       
       add([
-        { target: petRef, position: 0 },
+        { target: petRef, position: 0, text: "Place Holder Text" },
       ])
     }, [])
     const setPlayAnimation = petAnimation((state) => state.setPlayAnimation);
@@ -69,8 +69,12 @@ const Home = () => {
         setTotalMoneyEarned(newEarned);
       }
     }
+    useEffect(()=>{
+      movePet()
+    },[isActive1])
     const movePet = (targetX = null) => {
-      if (isPausedRef.current) return;
+      console.log(isActive1)
+      if (isPausedRef.current || isActive1) return;
       const pet = petRef.current;
       // ills any animations from before for safety
       gsap.killTweensOf(pet);
@@ -184,10 +188,6 @@ const Home = () => {
         <div className="absolute h-[10%] bottom-0"/>
         <img ref={petRef} src="/Virtual-pet/chainchillahappy.png" onClick={()=>(handleClick("/Virtual-pet/click1.gif"))} className="pixelated fixed h-[20%] bottom-0"></img>
         
-        <div className="absolute bg-pink">
-          {isActive && <button onClick={next}>Next</button>}
-          {isActive && <button onClick={skip}>Skip</button>}
-        </div>
        
         
     </div>

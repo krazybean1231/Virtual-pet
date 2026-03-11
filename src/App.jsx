@@ -12,22 +12,33 @@ import gsap from 'gsap'
 import Tutorial from './pages/Tutorial.jsx'
 import { useGSAP } from '@gsap/react'
 import Progression from './pages/Progression.jsx'
+import StartPage from './pages/StartPage.jsx'
+import { useStart } from './store/index.js'
 export default function App() {
   const [currentBg, setCurrentBg] = useState('#c7bfb2');
   const storageRef = useRef(null);
   const navRef = useRef(null);
-  const { isActive, next, skip, steps, currentStep, add, start } = Progression();
+  const {startPage, setStartPage} = useStart();
+  const { isActive1, isActive2, setCurrentStep, next, steps, currentStep, add, start1, start2} = Progression();
+  const hasStartedShop = useRef(false)
   useEffect(() => {
       
       add([
         { target: storageRef, position: 1 },
       ])
-      start();
+      start1();
     }, [])
+    
   const step = steps[currentStep]
-  const [screen, setScreen] = useState(SCREENS.HOME);
+  const [screen, setScreen] = useState(SCREENS.START);
   const [loading, setLoading] = useState(false);
   const loadingRef = useRef(null);
+  useEffect(() => {
+    if (screen === SCREENS.SHOP && !hasStartedShop.current) {
+      hasStartedShop.current = true 
+      start2()
+    }
+  }, [screen])
   useGSAP(() => {
     if (loading && loadingRef.current){
       const tl = gsap.timeline();
@@ -56,10 +67,14 @@ export default function App() {
   const goTo = (nextScreen) => {
     setLoading(true);
     switch (nextScreen) {
+      case SCREENS.START:
+        setStartPage(true);
+        break;
       case SCREENS.HOME:
         setCurrentBg('#c7bfb2');
         break;
       case SCREENS.SHOP:
+        setCurrentStep(12);
         setCurrentBg('#e4ab79');
         break;
       case SCREENS.REPAIR:
@@ -78,6 +93,8 @@ export default function App() {
   // Conditional rendering, the function that actually renders the screen
   const renderScreen = () => {
     switch (screen) {
+      case SCREENS.START: 
+        return <StartPage goTo={goTo} />;
       case SCREENS.HOME: 
         return <Home goTo={goTo} />;
       case SCREENS.SHOP:
@@ -92,10 +109,17 @@ export default function App() {
   // The actual page, this is what actually gets passed back and renders and the core of react
   return (
     <div className="app">
-      <NavBar goTo={goTo} current={screen}/>
-      <Bar background={currentBg}/>
-      <Storage ref={storageRef}/>
-      {isActive && <Tutorial targetRef={step.target} />}
+      
+      {!startPage && (
+        <>
+          <NavBar goTo={goTo} current={screen}/>
+          <Bar background={currentBg}/>
+          <Storage ref={storageRef}/>
+          {isActive1 && <Tutorial targetRef={step.target} />}
+          {isActive2 && <Tutorial targetRef={step.target} />}
+
+        </>)}
+      
       {loading && <Loading ref={loadingRef}/>}
       {renderScreen()}
     </div>
