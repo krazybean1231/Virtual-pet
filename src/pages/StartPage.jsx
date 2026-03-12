@@ -24,11 +24,19 @@ const StartPage = ({goTo}) => {
             delay: 1
           }
         )
+        const el = startButtonRef.current;
+        el.addEventListener('mouseenter', () => gsap.to(el, { y: '-8px', duration: 0.2 }))
+        el.addEventListener('mouseleave', () => gsap.to(el, { y: '0px', duration: 0.2 }))
+
+        return () => {
+          el.removeEventListener('mouseenter', () => gsap.to(el, { y: '-8px', duration: 0.2 }))
+          el.removeEventListener('mouseleave', () => gsap.to(el, { y: '0px', duration: 0.2 }))
+        }
     }}, [startPage]);
   return (
     <div className="w-screen h-screen">
       <img src="/Virtual-pet/Start.png" className="absolute w-[65%] inset-x-0 top-1/8 mx-auto"/>
-        <button ref={startButtonRef} onClick={handleStart} className="absolute text-4xl inset-x-0 bottom-1/4 mx-auto">
+        <button ref={startButtonRef} onClick={handleStart} className="absolute text-4xl inset-x-0 bottom-1/4 mx-auto ">
             Press Start
         </button>
     </div>

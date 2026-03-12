@@ -44,7 +44,7 @@ const Tutorial = ({ targetRef }) => {
     const boxX = Math.min(Math.max(rect.x, 16), W - boxW - 16); 
     const boxY = showB ? rect.y + rect.h + 12 : rect.y - 12
   return (
-    <div className="fixed inset-0 z-50 pointer-events-auto">
+    <div id="tutorial" className="fixed inset-0 z-50 pointer-events-auto">
     <svg className="absolute w-screen h-screen inset-0">
       <defs>
         <mask id="pet-mask">
@@ -57,8 +57,8 @@ const Tutorial = ({ targetRef }) => {
         fill="none" stroke="rgba(120,180,255,0.6)" strokeWidth={2} />
     </svg>
     <div className="absolute pointer-events-auto bg-white rounded-xl shadow-xl p-4 break-words" style={{left: boxX, width: boxW, ...(showB ? { top: boxY } : { bottom: H - boxY })}}>
-        <p> {steps[currentStep].text} i hate ap world i hate ap world i hate ap world i hate ap world i hate ap world i hate ap world i hate ap world i hate ap world i hate ap world i hate ap world</p>
-        <div className="relative w-[60%] flex justify-between items-center">
+        <p> {steps[currentStep].text} </p>
+        <div className="relative w-[60%] mt-1 flex justify-between items-center">
             <button className="relative z-15 overflow-hidden bg-[url('/Virtual-pet/button.png')] h-[25%] w-[45%] bg-[length:100%_100%] bg-no-repeat bg-center group" onClick={next}>Next</button>
             <button className="relative z-15 overflow-hidden bg-[url('/Virtual-pet/button.png')] h-[25%] w-[45%] bg-[length:100%_100%] bg-no-repeat bg-center group" onClick={skip}> Skip </button>
         </div>

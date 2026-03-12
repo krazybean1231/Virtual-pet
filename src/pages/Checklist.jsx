@@ -1,9 +1,22 @@
-import React from 'react'
+import {React, useEffect, useRef} from 'react'
 import { stats } from '../store'
+import Progression from './Progression';
 
 const Checklist = () => {
     // Zustand global variables
     const {totalTimePlayed, totalMoneyEarned, totalExpense} = stats();
+    const {update} = Progression();
+    const playTimeRef = useRef(null);
+    const totalExpenseRef = useRef(null);
+    const totalMoneyRef = useRef(null);
+    useEffect(() =>{
+        update([
+            { target: playTimeRef, position: 22, text: "This is the number of time (in seconds) you have spent on the game." },
+            { target: totalExpenseRef, position: 23, text: "This is the number of money you have spent on items for your Chainchilla." },
+            { target: totalMoneyRef, position: 24, text: "This is the number of money you have earned so far." },
+        ])
+    },[])
+    
     // Whats rendered
   return (
     <div className="bg-[#f8f2f3] flex items-center justify-center mt-[7vh] min-h-[93vh] w-screen">
@@ -12,9 +25,9 @@ const Checklist = () => {
             <div className="absolute rotate-8  h-3/4 flex gap-[5%] flex-col top-1/4 left-1/2 -translate-x-5/10 items-center w-1/2 origin-center">
                 <span className="text-4xl"> Stats/Checklist</span>
                 <div className="flex flex-col justify-around w-3/5 h-3/4">
-                    <span className="text-xl"> Total Playtime: {totalTimePlayed} S</span>
-                    <span className="text-xl"> Total Expenses: {totalExpense} C</span>
-                    <span className="text-xl"> Total Money Earned: {totalMoneyEarned} C</span>
+                    <span ref={playTimeRef} className="text-xl"> Total Playtime: {totalTimePlayed} S</span>
+                    <span ref={totalExpenseRef} className="text-xl"> Total Expenses: {totalExpense} C</span>
+                    <span ref={totalMoneyRef} className="text-xl"> Total Money Earned: {totalMoneyEarned} C</span>
                 </div>
             </div>
         </div>

@@ -54,54 +54,67 @@ const Button = ({item,cost}) =>{
 const Shop = () => {
   const counterRef = useRef(null);
   const lithiumRef = useRef(null);
-  const {add} = Progression();
+  const batteryRef = useRef(null);
+  const crystalRef = useRef(null);
+  const orbRef = useRef(null);
+  const airRef = useRef(null);
+  const lubricantRef = useRef(null);
+  const {update} = Progression();
   const [counterHeight, setCounterHeight] = useState(0);
   useEffect(() => {
         
-    add([
-      { target: lithiumRef, position: 13 },
+    update([
+      { target: lithiumRef, position: 13, text: "This is the lithium, using this will restore 5% of your Chainchilla's hunger." },
+      { target: batteryRef, position: 14, text: "This is the battery, using this will restore 20% of your Chainchilla's hunger." },
+      { target: crystalRef, position: 15, text: "This is the power crystal, using this will restore 10% of your Chainchilla's mood." },
+      { target: orbRef, position: 16, text: "This is the static orb, using this will restore 25% of your Chainchilla's mood." },
+      { target: airRef, position: 17, text: "This is the air canister, using this will restore 10% of your Chainchilla's cleaniness." },
+      { target: lubricantRef, position: 18, text: "This is the lubricant, using this will restore 25% of your Chainchilla's cleaniness." },
     ])
   }, [])
   const measureCounter = () => {
     if (counterRef.current) {
       const h = counterRef.current.getBoundingClientRect().height;
-      console.log("counter height:", h);
       setCounterHeight(h);
     }
   };
+  useEffect(()=>{
+    window.addEventListener("resize", measureCounter);
+    return () => {window.removeEventListener("resize", measureCounter);}
+  })
   return (
     <div className="bg-[#e5aa7a] w-screen h-screen mt-[7vh]">
         <img src="/Virtual-pet/cat.png" style={{ bottom: `${counterHeight}px` }} className="pixelated bg-black absolute left-[18%] w-[22%]"/>
         <img ref={counterRef} onLoad={measureCounter} src="/Virtual-pet/counter.png" className="pixelated bg-black scale-x-[-1] absolute bottom-0 w-full"/>
         <div className="absolute w-[50%] h-[40%] grid grid-cols-2 grid-rows-3 gap-5 m-[5%] right-0">
-          <div ref={lithiumRef} className="relative">
-          <img src="/Virtual-pet/lithium.png" className="pixelated absolute left-1/2 bottom-[75%] -translate-x-[50%] w-[25%]"/>
+          <div className="relative">
+          <img ref={lithiumRef} src="/Virtual-pet/lithium.png" className="pixelated absolute left-1/2 bottom-[75%] -translate-x-[50%] w-[25%]"/>
             <img src="/Virtual-pet/display.png" className="pixelated w-full"/>
             <Button item="Lithium" cost={5}/>
           </div>
             
           <div className="relative">
-            <img src="/Virtual-pet/battery.png" className="pixelated absolute left-1/2 bottom-[75%] -translate-x-[50%] w-[25%]"/>
+            <img ref={batteryRef} src="/Virtual-pet/battery.png" className="pixelated absolute left-1/2 bottom-[75%] -translate-x-[50%] w-[25%]"/>
             <img src="/Virtual-pet/display.png" className="pixelated w-full"/>
             <Button item="Battery" cost={10}/>
           </div>
           <div className="relative">
-            <img src="/Virtual-pet/crystal.png" className="pixelated absolute left-1/2 bottom-[75%] -translate-x-[50%] w-[25%]"/>
+            <img ref={crystalRef} src="/Virtual-pet/crystal.png" className="pixelated absolute left-1/2 bottom-[75%] -translate-x-[50%] w-[25%]"/>
             <img src="/Virtual-pet/display.png" className="pixelated w-full"/>
             <Button item="Crystal" cost={25}/>
           </div>
           <div className="relative">
-            <img src="/Virtual-pet/orb.png" className="pixelated absolute left-1/2 bottom-[75%] -translate-x-[50%] w-[25%]"/>
+            <img ref={orbRef} src="/Virtual-pet/orb.png" className="pixelated absolute left-1/2 bottom-[75%] -translate-x-[50%] w-[25%]"/>
             <img src="/Virtual-pet/display.png" className="pixelated w-full"/>
             <Button item="Orb" cost={50}/>
           </div>
           <div className="relative">
-            <img src="/Virtual-pet/air.png" className="pixelated absolute left-1/2 bottom-[75%] z-5 -translate-x-[50%] w-[25%]"/>
+            <img ref={airRef} src="/Virtual-pet/air.png" className="pixelated absolute left-1/2 bottom-[75%] z-5 -translate-x-[50%] w-[25%]"/>
             <img src="/Virtual-pet/display.png" className="pixelated w-full"/>
             <Button item="Air" cost={50}/>
           </div>
           <div className="relative">
-            <img src="/Virtual-pet/lubricant.png" className="pixelated absolute left-1/2 bottom-[75%] -translate-x-[50%] w-[25%]"/>
+            <img ref={lubricantRef} src="/Virtual-pet/lubricant.png" className="pixelated absolute left-1/2 bottom-[75%] -translate-x-[50%] w-[25%]"/>
             <img src="/Virtual-pet/display.png" className="pixelated w-full"/>
             <Button item="Lubricant" cost={100}/>
           </div>

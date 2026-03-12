@@ -9,11 +9,13 @@ const Home = () => {
   // Setting the Zustand variables, hooks, and normal variables
     const {money, setMoney, hunger, mood,clean} = inGameVariables();
     const [showTutorial, setShowTutorial] = useState(true);
-    const { isActive1, next, skip1, steps, currentStep, add } = Progression();
+    const { isActive1, next, skip1, steps, currentStep, update } = Progression();
+    const startRef = useRef(null);
     useEffect(() => {
       
-      add([
-        { target: petRef, position: 0, text: "Place Holder Text" },
+      update([
+        { target: startRef, position: 0, text: "" },
+        { target: petRef, position: 1, text: "Here is your pet Chainchilla! Make sure to take care of it and click him to earn money." },
       ])
     }, [])
     const setPlayAnimation = petAnimation((state) => state.setPlayAnimation);
@@ -187,7 +189,9 @@ const Home = () => {
       <input placeholder="Chainchilla" className="absolute left-1/2 top-[10%] pt-5  -translate-x-1/2 w-[20vw] h-[10vh] bg-[url('/name.png')] bg-[length:100%_100%] text-center appearance-none border-none outline-none"/>
         <div className="absolute h-[10%] bottom-0"/>
         <img ref={petRef} src="/Virtual-pet/chainchillahappy.png" onClick={()=>(handleClick("/Virtual-pet/click1.gif"))} className="pixelated fixed h-[20%] bottom-0"></img>
-        
+        {currentStep === 0 && (<div ref={startRef} className="absolute flex bg-white p-2 text-center items-center z-15 inset-0 m-auto rounded-xl text-3xl shadow-xl w-[25%] h-[20%]">
+          Here is a quick tutorial to help you get started on the game!
+        </div>)}
        
         
     </div>

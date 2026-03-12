@@ -41,7 +41,9 @@ export const itemAmount = create((set)=>({
     Air: 0,
     setAir: Air => set({Air}),
     Lubricant: 0,
-    setLubricant: Lubricant => set({Lubricant})
+    setLubricant: Lubricant => set({Lubricant}),
+
+    getNumber: (name) => get()[name]
 }))
 /*import { create } from "zustand";
 import { persist, createJSONStorage } from 'zustand/middleware'

@@ -10,38 +10,42 @@ const Bar = ({background}) => {
     const hungerRef = useRef(null);
     const moodRef = useRef(null);
     const cleanRef = useRef(null);
-    const {add} = Progression();
+    const {update, isActive1} = Progression();
     useEffect(() => {
           
-          add([
-            { target: healthRef, position: 2 },
-            { target: moneyRef, position: 3 },
-            { target: hungerRef, position: 4 },
-            { target: moodRef, position: 5 },
-            { target: cleanRef, position: 6 },
+          update([
+            { target: healthRef, position: 3, text: "This is your Chainchilla's health, it will decrease by itself and decrease faster if you do not take good care of your Chainchilla, and once it reaches 0, your Chainchilla dies!" },
+            { target: moneyRef, position: 4, text: "This is the amount of Chain coins you have, the ingame currency you can earn by clicking the Chainchilla." },
+            { target: hungerRef, position: 5, text: "This is your Chainchilla's hunger bar, make sure to feed him from time to time or his health will start decreasing faster." },
+            { target: moodRef, position: 6, text: "This is your Chainchilla's mood bar! Make sure this bar is high so you get more money from the Chainchilla, and be careful, don't make the Chainchilla mad." },
+            { target: cleanRef, position: 7, text: "This is your Chainchilla's cleaniness bar, the lower it is, the slower your Chainchilla will move." },
           ])
         }, [])
     // Intervals to decrease the differnt bars
     useEffect(() => {
         const hungerInterval = setInterval(() => {
+            if(!Progression.getState().isActive1){
             const currentHunger = inGameVariables.getState().hunger;
             const newHunger = Math.max(0, currentHunger - 1);
-            setHunger(newHunger);
+            setHunger(newHunger);}
         }, 5000);
         const moodInterval = setInterval(()=>{
+            if(!Progression.getState().isActive1){
             const currentMood = inGameVariables.getState().mood;
             const newMood = Math.max(0, currentMood - 1);
-            setMood(newMood);
+            setMood(newMood);}
         },5000)
         const healthInterval = setInterval(()=>{
+            if(!Progression.getState().isActive1){
             const currentHealth = inGameVariables.getState().health;
             const newHealth = Math.max(0, currentHealth - 1);
-            setHealth(newHealth);
+            setHealth(newHealth);}
         },5000)
         const cleanInterval = setInterval(()=>{
+            if(!Progression.getState().isActive1){
             const currentClean = inGameVariables.getState().clean;
             const newClean = Math.max(0, currentClean - 1);
-            setClean(newClean);
+            setClean(newClean);}
         },10000)
 
         // Cleanup
@@ -71,7 +75,7 @@ const Bar = ({background}) => {
                     
                 </div>
                 <div className="flex items-center justify-center h-[100%] w-[70%]">
-                    <span className="text-3xl leading-none">{money}$</span>
+                    <span className="text-3xl leading-none">{money}C</span>
                 </div>
                 
             </div>

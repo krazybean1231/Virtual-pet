@@ -20,6 +20,9 @@ body {
       ul{
         @apply flex justify-between w-full ;
       }
+      button {
+        @apply transform transition-transform duration-300 ease-in-out hover:-translate-y-1;
+      }
     }
   }
   .pixelated {
@@ -29,5 +32,10 @@ body {
 }
   #home{
     @apply bg-[url('/home.png')];
+  }
+  #tutorial{
+    button{
+      @apply transform transition-transform duration-300 ease-in-out hover:-translate-y-1;
+    }
   }
 }

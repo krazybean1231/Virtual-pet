@@ -1,8 +1,9 @@
 
-import {React, useState} from 'react'
+import {React, useState,useEffect, useRef} from 'react'
 import { inGameVariables} from '../store';
 import { REPAIR } from '../constants';
 import { stats } from '../store';
+import Progression from './Progression';
 
 // Button component to allow reuse
 const Button = ({item,cost}) =>{
@@ -49,21 +50,32 @@ const Button = ({item,cost}) =>{
   )
 }
 const Repair = () => {
+  const {update} = Progression();
+  const poorRef = useRef(null);
+  const goodRef = useRef(null);
+  const superRef = useRef(null);
+  useEffect(()=>{
+    update([
+      {target: poorRef, position: 19, text: "This is the poor repair, using this will restore 25% of your Chainchilla's health." },
+      {target: goodRef, position: 20, text: "This is the good repair, using this will restore 50% of your Chainchilla's health."},
+      {target: superRef, position: 21, text: "This is the super repair, using this will restore 100% of your Chainchilla's health."}
+    ])
+  },[])
   // What actually gets rendered
   return (
     <div className="w-screen bg-[#d5ccc4] h-screen mt-[7vh]">
       <img src="/Virtual-pet/repair.png" className="absolute w-full h-[50%] bottom-0"/>
       <img src="/Virtual-pet/bird.png" className="absolute left-[10%] h-[43%]"/>
       <div className="absolute flex w-[50%] bottom-[50%] justify-around right-0">
-        <div className="relative flex justify-center">
+        <div ref={superRef} className="relative flex justify-center">
           <img src="/Virtual-pet/super.png" className=" w-3/4"/>
           <Button item="Super" cost={250}/>
         </div>
-        <div className="relative flex justify-center">
+        <div ref={goodRef} className="relative flex justify-center">
           <img src="/Virtual-pet/good.png" className="w-3/4"/>
           <Button item="Good" cost={150}/>
         </div>
-        <div className="relative flex justify-center">
+        <div ref={poorRef} className="relative flex justify-center">
           <img src="/Virtual-pet/poor.png" className="w-3/4"/>
           <Button item="Poor" cost={100}/>
         </div>

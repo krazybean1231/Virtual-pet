@@ -19,13 +19,18 @@ export default function App() {
   const storageRef = useRef(null);
   const navRef = useRef(null);
   const {startPage, setStartPage} = useStart();
-  const { isActive1, isActive2, setCurrentStep, next, steps, currentStep, add, start1, start2} = Progression();
+  const { isActive1, isActive2, isActive3, isActive4, setCurrentStep, update, steps, currentStep, add, start1, start2, start3, start4} = Progression();
   const hasStartedShop = useRef(false)
+  const hasStartedRepair = useRef(false)
+  const hasStartedCheckList = useRef(false)
   useEffect(() => {
       
-      add([
-        { target: storageRef, position: 1 },
-      ])
+    add(
+      Array.from({ length: 25 }, (_, i) => ({ target: null, position: i, text: null }))
+    )
+    update([
+      { target: storageRef, position: 2, text: "Here is your storage, this is where all your items will be stored which you can use on the Chainchilla." },
+    ])
       start1();
     }, [])
     
@@ -37,6 +42,14 @@ export default function App() {
     if (screen === SCREENS.SHOP && !hasStartedShop.current) {
       hasStartedShop.current = true 
       start2()
+    }
+    else if (screen === SCREENS.REPAIR && !hasStartedRepair.current) {
+      hasStartedRepair.current = true 
+      start3()
+    }
+    else if (screen === SCREENS.CHECKLIST && !hasStartedCheckList.current) {
+      hasStartedCheckList.current = true 
+      start4()
     }
   }, [screen])
   useGSAP(() => {
@@ -72,15 +85,18 @@ export default function App() {
         break;
       case SCREENS.HOME:
         setCurrentBg('#c7bfb2');
+        setCurrentStep(0);
         break;
       case SCREENS.SHOP:
-        setCurrentStep(12);
+        setCurrentStep(13);
         setCurrentBg('#e4ab79');
         break;
       case SCREENS.REPAIR:
+        setCurrentStep(19);
         setCurrentBg('#d5ccc4');
         break;
       case SCREENS.CHECKLIST:
+        setCurrentStep(22);
         setCurrentBg('#f8f2f3');
         break;
     }
@@ -115,9 +131,7 @@ export default function App() {
           <NavBar goTo={goTo} current={screen}/>
           <Bar background={currentBg}/>
           <Storage ref={storageRef}/>
-          {isActive1 && <Tutorial targetRef={step.target} />}
-          {isActive2 && <Tutorial targetRef={step.target} />}
-
+          {(isActive1 || isActive2 || isActive3 || isActive4) && step && step.target && <Tutorial targetRef={step.target} />}
         </>)}
       
       {loading && <Loading ref={loadingRef}/>}
