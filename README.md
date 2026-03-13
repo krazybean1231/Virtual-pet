@@ -13,7 +13,7 @@ The goal is to keep the pet's systems functioning and progress through tasks whi
 2. The **Start Page** will appear.
 3. Click the **Start Button** to begin the game.
 
-![Start Screen](images/start-screen.png)
+![Start Screen](images/start-screen.webp)
 
 **Image Description:**  
 Screenshot of the start screen showing the game title and the button used to start the game.
@@ -24,7 +24,7 @@ Screenshot of the start screen showing the game title and the button used to sta
 
 Once the game begins, the **Home Screen** is displayed. This is the main area where you can view your pet and interact with different systems.
 
-![Home Screen](images/home-screen.png)
+![Home Screen](images/home-screen.webp)
 
 **Image Description:**  
 Screenshot of the home screen displaying the pet and main navigation bar.
@@ -44,7 +44,7 @@ Main sections include:
 - **Checklist** – Track tasks and objectives
 - **Progression** – View game progress
 
-![Navigation Bar](images/nav-bar.png)
+![Navigation Bar](images/nav-bar.webp)
 
 **Image Description:**  
 Screenshot highlighting the navigation bar and labeled sections.
@@ -64,7 +64,7 @@ These bars may represent:
 
 Players must keep these stats stable to maintain the pet.
 
-![Stat Bar](images/stat-bar.png)
+![Stat Bar](images/stat-bar.webp)
 
 **Image Description:**  
 Screenshot of the stat bar UI showing multiple bars with different resource levels.
@@ -82,7 +82,7 @@ Steps to use the shop:
 3. Click an item to purchase it.
 4. The item will be added to your storage or applied immediately.
 
-![Shop Screen](images/shop-screen.png)
+![Shop Screen](images/shop-screen.webp)
 
 **Image Description:**  
 Screenshot of the shop interface displaying purchasable items and their costs.
@@ -99,7 +99,7 @@ Steps:
 2. Select the damaged component.
 3. Use available resources to repair it.
 
-![Repair Screen](images/repair-screen.png)
+![Repair Screen](images/repair-screen.webp)
 
 **Image Description:**  
 Screenshot of the repair interface showing repairable systems.
@@ -116,7 +116,7 @@ Players can:
 - Use stored items
 - Manage inventory
 
-![Storage](images/storage.png)
+![Storage](images/storage.webp)
 
 **Image Description:**  
 Screenshot of the storage inventory UI showing item slots.
@@ -133,7 +133,7 @@ Progress may include:
 - Game milestones
 - Tutorial steps
 
-![Progression](images/progression.png)
+![Progression](images/progression.webp)
 
 **Image Description:**  
 Screenshot of the progression tracker showing completed and upcoming milestones.
@@ -151,7 +151,7 @@ The tutorial may include:
 - Repairing systems
 - Managing stats
 
-![Tutorial](images/tutorial.png)
+![Tutorial](images/tutorial.webp)
 
 **Image Description:**  
 Screenshot showing tutorial instructions overlaying the game interface.
@@ -162,7 +162,7 @@ Screenshot showing tutorial instructions overlaying the game interface.
 
 Some actions or transitions may briefly display a loading screen.
 
-![Loading Screen](images/loading.png)
+![Loading Screen](images/loading.webp)
 
 **Image Description:**  
 Screenshot of the loading screen displayed between game states.
